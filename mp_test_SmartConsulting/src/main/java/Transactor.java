@@ -62,15 +62,15 @@ public class Transactor {
 
         List<Transaction> transactions = new ArrayList<>();
 
-        Runnable task = () -> { // вошли в метод (потоки, не блокируются)
+        Runnable task = () -> {
             try {
                 while (transactionCount > 0) {
                     Thread currentThread = Thread.currentThread();
 
                     int sleepTime = 1 + (int) (Math.random() * 2);
-                    TimeUnit.SECONDS.sleep(sleepTime); // поток заснул (1-2 сек.)...
+                    TimeUnit.SECONDS.sleep(sleepTime);
 
-                    synchronized (transactionCount) { // здесь доступ до общего ресурса только для одного потока (первого вошедшего в блок), выполняет код ниже
+                    synchronized (transactionCount) {
                         if (transactionCount > 0) {
 
                             int randomIdAccountFrom = (int) (Math.random() * accounts.length);
